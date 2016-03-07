@@ -2,20 +2,20 @@
 % Datum: 07.03.2016
 
 % Vater: X ist Vater von Y
-vater(X,Y) :- mann(X), elternteil(X,Y).
+vater(X,Y) :- elternteil(X,Y), mann(X).
  
 % Mutter: X ist Mutter von Y
-mutter(X,Y) :- frau(X), elternteil(X,Y).
+mutter(X,Y) :- elternteil(X,Y), frau(X).
 
 
 % Großelternteil: X ist Elternteil vom Elternteil von Y
 großelternteil(X,Y) :- elternteil(X,Z), elternteil(Z,Y).
 
 % Opa: X ist Opa von Y
-opa(X,Y) :- mann(x), großelternteil(X,Y).
+opa(X,Y) :-  großelternteil(X,Y), mann(X).
 
 % Oma: X ist Oma von Y
-oma(X,Y) :- frau(X), großelternteil(X,Y).
+oma(X,Y) :-  großelternteil(X,Y), frau(X).
 
 
 % Vorfahre: X ist ein Vorfahre von Y
@@ -41,4 +41,4 @@ schwester(X,Y) :- geschwister(X,Y), frau(X).
 onkel(X,Y) :- elternteil(Z,Y), bruder(X,Z).
 
 % Tante: X ist Tante von Y
-tante(X,Y) :- elternteil(X,Y), schwester(X,Z).
+tante(X,Y) :- elternteil(Z,Y), schwester(X,Z).
