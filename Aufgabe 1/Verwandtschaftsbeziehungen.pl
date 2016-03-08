@@ -7,6 +7,12 @@ vater(X,Y) :- elternteil(X,Y), mann(X).
 % Mutter: X ist Mutter von Y
 mutter(X,Y) :- elternteil(X,Y), frau(X).
 
+%Sohn: X ist Sohn von Y
+sohn(X,Y):- elternteil(Y,X),mann(X).
+
+%Tochter: X ist Tochter von Y
+tochter(X,Y):- elternteil(Y,X),tochter(X).
+
 
 % Groﬂelternteil: X ist Elternteil vom Elternteil von Y
 groﬂelternteil(X,Y) :- elternteil(X,Z), elternteil(Z,Y).
@@ -42,3 +48,17 @@ onkel(X,Y) :- elternteil(Z,Y), bruder(X,Z).
 
 % Tante: X ist Tante von Y
 tante(X,Y) :- elternteil(Z,Y), schwester(X,Z).
+
+% Neffe: X ist Neffe von Y
+neffe(X,Y) :- onkel(Y,X).
+
+%Nichte: X ist Nichte von Y
+nichte(X,Y) :- tante(Y,X).
+
+%Cousin: X ist Cousin von Y
+cousin(X,Y) :- onkel(Z,Y), sohn(X,Z).
+cousin(X,Y) :- tante(Z,Y), sohn(X,Z).
+
+%Cousine: X ist Cousine von Y
+cousine(X,Y) :- onkel(Z,Y), tochter(X,Z).
+cousine(X,Y) :- tante(Z,Y), tochter(X,Z).
