@@ -49,7 +49,8 @@ mann(dietbertduck).
 mann(hilmarduck).
 mann(teddyduck).
 mann(dusselduck).
-mann(wastelduckik).
+mann(wastelduck).
+
 
 
 %alle weiblichen individuen
