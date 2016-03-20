@@ -1,6 +1,7 @@
 %autor:
 %datum:07.03.2016
 
+% ========================== Stammbaum Duckfamilie =============================
 %alle verwandsschaftsrelationen
 elternteil(delladuck,tickduck).
 elternteil(delladuck,trickduck).
@@ -61,3 +62,87 @@ frau(dankradeduck).
 frau(doretteduck).
 frau(daphneduck).
 frau(gretchengogel).
+% ========================== Stammbaum Duckfamilie =============================
+
+% Elternteile
+elternteil(bardok, son_goku).
+elternteil(bardok, radditz).
+elternteil(gine, son_goku).
+elternteil(gine, radditz).
+elternteil(son_goku, son_goten).
+elternteil(son_goku, son_gohan).
+elternteil(chichi, son_goten).
+elternteil(chichi, son_gohan).
+elternteil(son_gohan, pan).
+elternteil(videl, pan).
+
+elternteil(mr_satan, videl).
+
+elternteil(dr_briefs, bulma).
+elternteil(mrs_briefs, bulma).
+elternteil(koenig_vegeta, vegeta).
+elternteil(koenig_vegeta, tarble).
+elternteil(unknown, vegeta).
+elternteil(unkown, tarble).
+elternteil(vegeta, bra).
+elternteil(vegeta, trunks).
+elternteil(bulma, bra).
+elternteil(bulma, trunks).
+
+elternteil(krillin, marron).
+elternteil(c_18, marron).
+
+elternteil(koenig_cold, cooler).
+elternteil(koenig_cold, freezer).
+
+% Verheiratet
+verheiratet(bardok, gine).
+verheiratet(koenig_vegeta, unkown).
+verheiratet(son_goku, chichi).
+verheiratet(vegeta, bulma).
+verheiratet(krillin, c_18).
+verheiratet(dr_briefs, mrs_briefs).
+
+% Mann
+mann(bardok).
+mann(son_goku).
+mann(radditz).
+mann(son_goten).
+mann(son_gohan).
+mann(mr_satan).
+mann(dr_briefs).
+mann(vegeta).
+mann(koenig_vegeta).
+mann(tarble).
+mann(krillin).
+mann(cooler).
+mann(freezer).
+mann(koenig_cold).
+mann(trunks).
+mann(mutenroshi).
+
+% Frau
+frau(gine).
+frau(bulma).
+frau(unknown).
+frau(chichi).
+frau(bra).
+frau(uranai_baba).
+frau(videl).
+frau(c_18).
+frau(marron).
+frau(mrs_briefs).
+frau(pan).
+
+% Saiyan
+saiyan(bardok).
+saiyan(son_goku).
+saiyan(vegeta).
+saiyan(radditz).
+saiyan(trunks).
+saiyan(son_goten).
+saiyan(son_gohan).
+saiyan(koenig_vegeta).
+saiyan(tarble).
+saiyan(gine).
+saiyan(unknown).
