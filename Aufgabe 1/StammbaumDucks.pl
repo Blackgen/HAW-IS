@@ -6,6 +6,9 @@
 elternteil(delladuck,tickduck).
 elternteil(delladuck,trickduck).
 elternteil(delladuck,trackduck).
+elternteil(unknownduck,tickduck).
+elternteil(unknownduck,trickduck).
+elternteil(unknownduck,trackduck).
 elternteil(dortelduck,delladuck).
 elternteil(degenhardduck,delladuck).
 elternteil(dortelduck,donaldduck).
@@ -51,6 +54,7 @@ mann(hilmarduck).
 mann(teddyduck).
 mann(dusselduck).
 mann(wastelduck).
+mann(unknownduck).
 
 
 
@@ -83,7 +87,7 @@ elternteil(mrs_briefs, bulma).
 elternteil(koenig_vegeta, vegeta).
 elternteil(koenig_vegeta, tarble).
 elternteil(unknown, vegeta).
-elternteil(unkown, tarble).
+elternteil(unknown, tarble).
 elternteil(vegeta, bra).
 elternteil(vegeta, trunks).
 elternteil(bulma, bra).
@@ -93,7 +97,13 @@ elternteil(krillin, marron).
 elternteil(c_18, marron).
 
 elternteil(koenig_cold, cooler).
+elternteil(koenigin_cold, cooler).
 elternteil(koenig_cold, freezer).
+elternteil(koenigin_cold, freezer).
+
+% Halbgeschwister:
+elternteil(son_goku, garumex).
+elternteil(bulma, garumex).
 
 % Verheiratet
 verheiratet(bardok, gine).
@@ -121,6 +131,8 @@ mann(koenig_cold).
 mann(trunks).
 mann(mutenroshi).
 
+mann(garumex).
+
 % Frau
 frau(gine).
 frau(bulma).
@@ -133,6 +145,7 @@ frau(c_18).
 frau(marron).
 frau(mrs_briefs).
 frau(pan).
+frau(koenigin_cold).
 
 % Saiyan
 saiyan(bardok).
