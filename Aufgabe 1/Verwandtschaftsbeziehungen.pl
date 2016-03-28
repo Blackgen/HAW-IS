@@ -23,6 +23,13 @@ opa(X,Y) :-  groﬂelternteil(X,Y), mann(X).
 % Oma: X ist Oma von Y
 oma(X,Y) :-  groﬂelternteil(X,Y), frau(X).
 
+% Uropa: X ist Uropa von Y
+uropa(X, Y) :-  mann(X), vater(Z, Y), opa(X, Z).
+uropa(X, Y) :-  mann(X), mutter(Z, Y), opa(X, Z).
+
+% Uroma: X ist Uroma von Y
+uroma(X, Y) :-  frau(X), vater(Z, Y), oma(X, Z).
+uroma(X, Y) :-  frau(X), mutter(Z, Y), oma(X, Z).
 
 % Vorfahre: X ist ein Vorfahre von Y
 vorfahre(X,Y) :- elternteil(X,Y).
