@@ -53,3 +53,61 @@ lex(nomen,cousine).
 lex(verb,ist).
 
 lex(pre,von).
+
+% ------------------------------------------------------------------------------
+
+% Interogativpronomen
+lexi(wer, interogativpronomen).
+lexi(wie, interogativpronomen).
+lexi(was, interogativpronomen).
+
+% Verben
+lexi(ist, verb, singular).
+lexi(sind, verb, plural).
+lexi(hat, verb, singular).
+
+% Praepositionen
+lexi(von, praeposition)
+
+% Artikel
+lexi(der, artikel, singular).
+lexi(die, artikel, singular).
+lexi(die, artikel, plural).
+
+% Nomen Singular
+lexi(onkel).
+lexi(tante).
+lexi(opa).
+lexi(oma).
+lexi(vater).
+lexi(mutter).
+lexi(schwester).
+lexi(bruder).
+lexi(halbschwester).
+lexi(halbbruder).
+lexi(uroma).
+lexi(uropa).
+lexi(cousin).
+lexi(cousine).
+lexi(nichte).
+lexi(neffe).
+
+% Nomen Plural
+% Vaeter und Muetter vielleicht nur wenn man von mehreren verschiedenen Kindern
+% jeweils Vater und Mutter haben moechte.
+lexi(onkel).
+lexi(tanten).
+lexi(opis).
+lexi(omis).
+lexi(vaeter).
+lexi(muetter).
+lexi(uropis).
+lexi(uromis).
+lexi(neffen).
+lexi(nichten).
+lexi(halbschwestern).
+lexi(halbbrueder).
+lexi(brueder).
+lexi(schwestern).
+lexi(cousins).
+lexi(cousinen).

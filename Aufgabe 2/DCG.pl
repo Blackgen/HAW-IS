@@ -6,7 +6,7 @@
 :- consult('../Aufgabe 1/Verwandtschaftsbeziehungen').
 :- consult('Satzbausteine').
 
-fragestellen :- read_sentence(X),frage(X,['.']).
+fragestellen :- read_sentence(X),frage(X,[('.')]).
 
 satz(NP,VP) :-  nominalphrase(NP,NR), verbalphrase(NR,VP).
                 
@@ -24,3 +24,23 @@ nominalphrase(N,Rest,Sub) :- nomen(N,Rest,Sub).
 verbalphrase(V,R,Sub) :- verb(V,NP), nominalphrase(NP,R,Sub).
 
 praepositionalphrase(PP,PR,Sub) :- praeposition(PP,PosR),eigenname(PosR,PR,Sub).
+
+% ------------------------------------------------------------------------------
+
+eingabe :- read_sentence(Satz), frage(Satz, []).
+
+frage() --> .
+
+nominalphrase() --> eigenname().
+nominalphrase() --> artikel(), nomen().
+nominalphrase() --> artikel(), nomen(), prapositionalphrase().
+praepositionalphrase() --> praeposition(), nominalphrase().
+praepositionalphrase() --> praeposition(), eigenname(), artikel(), nomen().
+verbalphrase() --> verb().
+verbalphrase() --> verb(), nominalphrase().
+eigenname() --> x.
+nomen(SingularPlural) --> [X], {lexi(X, nomen, SingularPlural)}.
+praeposition --> [X], {lexi(X, praeposition)}.
+verb(SingularPlural) --> [X], {lexi(X, verb, SingularPlural)}.
+interogativpronomen(SingularPlural) --> [X], {lexi(X, interogativpronomen, SingularPlural)}.
+artikel(SingularPlural) --> [X], {lexi(X, artikel, SingularPlural)}.
