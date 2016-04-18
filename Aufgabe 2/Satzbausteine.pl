@@ -62,9 +62,9 @@ lexi(wie, interogativpronomen).
 lexi(was, interogativpronomen).
 
 % Verben
-lexi(ist, verb, singular).
-lexi(sind, verb, plural).
-lexi(hat, verb, singular).
+lexi(ist, , ist, verb, singular).
+lexi(sind, sind, verb, plural).
+lexi(hat, , hat, verb, singular).
 
 % Praepositionen
 lexi(von, praeposition)
@@ -75,39 +75,39 @@ lexi(die, artikel, singular).
 lexi(die, artikel, plural).
 
 % Nomen Singular
-lexi(onkel).
-lexi(tante).
-lexi(opa).
-lexi(oma).
-lexi(vater).
-lexi(mutter).
-lexi(schwester).
-lexi(bruder).
-lexi(halbschwester).
-lexi(halbbruder).
-lexi(uroma).
-lexi(uropa).
-lexi(cousin).
-lexi(cousine).
-lexi(nichte).
-lexi(neffe).
+lexi(onkel, onkel).
+lexi(tante, tante).
+lexi(opa, opa).
+lexi(oma, oma).
+lexi(vater, vater).
+lexi(mutter, vater).
+lexi(schwester, schwester).
+lexi(bruder, bruder).
+lexi(halbschwester, halbschwester).
+lexi(halbbruder, halbbruder).
+lexi(uroma, uroma).
+lexi(uropa, uroma).
+lexi(cousin, cousin).
+lexi(cousine, cousine).
+lexi(nichte, nichte).
+lexi(neffe, neffe).
 
 % Nomen Plural
 % Vaeter und Muetter vielleicht nur wenn man von mehreren verschiedenen Kindern
 % jeweils Vater und Mutter haben moechte.
-lexi(onkel).
-lexi(tanten).
-lexi(opis).
-lexi(omis).
-lexi(vaeter).
-lexi(muetter).
-lexi(uropis).
-lexi(uromis).
-lexi(neffen).
-lexi(nichten).
-lexi(halbschwestern).
-lexi(halbbrueder).
-lexi(brueder).
-lexi(schwestern).
-lexi(cousins).
-lexi(cousinen).
+lexi(onkel, onkel).
+lexi(tanten, tanten).
+lexi(opis, opis).
+lexi(omis, omis).
+lexi(vaeter, vaeter).
+lexi(muetter, muetter).
+lexi(uropis, uropis).
+lexi(uromis, uromis).
+lexi(neffen, neffen).
+lexi(nichten, nichten).
+lexi(halbschwestern, halbschwestern).
+lexi(halbbrueder, halbbrueder).
+lexi(brueder, brueder).
+lexi(schwestern, schwestern).
+lexi(cousins, cousins).
+lexi(cousinen, cousinen).
