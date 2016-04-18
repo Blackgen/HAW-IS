@@ -12,7 +12,7 @@ satz(NP, VP) :-  nominalphrase(NP, NR), verbalphrase(NR, VP).
                 
 frage(F, R) :- fragewort(F, FR), verbalphrase(FR, VR, Bez), praepositionalphrase(VR, R, Sub),
               Anfrage =.. [Bez, X, Sub], findall(X, Anfrage, L), writeln(L).
-frage(F,R) :- verbalphrase(F, VBR, SubA), nominalphrase(VBR, NPR, Bez), praepositionalphrase(NPR, R, SubB),
+frage(F, R) :- verbalphrase(F, VBR, SubA), nominalphrase(VBR, NPR, Bez), praepositionalphrase(NPR, R, SubB),
               Anfrage =.. [Bez, SubA, SubB], Anfrage.
 
 % nominalphrase( Eingangsliste, Ausgangsliste, Nomen)
@@ -23,5 +23,5 @@ nominalphrase(N, Rest, Sub) :- nomen(N, Rest, Sub).
 %verbalphrase(VP,R) :- verb(VP,R).
 verbalphrase(V, R, Sub) :- verb(V, NP), nominalphrase(NP, R, Sub).
 
-praepositionalphrase(PP, PR, Sub) :- praeposition(PP, PosR),eigenname(PosR, PR, Sub).
+praepositionalphrase(PP, PR, Sub) :- praeposition(PP, PosR), eigenname(PosR, PR, Sub).
 

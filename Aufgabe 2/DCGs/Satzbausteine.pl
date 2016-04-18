@@ -1,23 +1,6 @@
 % Autor:
 % Datum: 24.03.2016
 
-
-
-eigenname([X|R],R,X) :- (mann(X);frau(X)).
-
-artikel([A|R],R) :- lex(art,A).
-
-verb([V|R],R) :- lex(verb,V).
-
-nomen([N|R],R,N):- lex(nomen,N).
-
-fragewort([F|R],R) :- lex(frage,F).
-
-praeposition([P|R],R) :- lex(pre,P).
-
-
-
-
 %lex(wortart,wort)
 %lex(wortart,wort,abart,abartart)
 
@@ -57,9 +40,9 @@ lex(pre,von).
 % ------------------------------------------------------------------------------
 
 % Interogativpronomen
-lexi(wer, interogativpronomen).
-lexi(wie, interogativpronomen).
-lexi(was, interogativpronomen).
+lexi(wer, iterogativpronomen).
+lexi(wie, iterogativpronomen).
+lexi(was, iterogativpronomen).
 
 % Verben
 lexi(ist, ist, verb, singular).
@@ -67,12 +50,12 @@ lexi(ist, sind, verb, plural).
 lexi(hat, hat, verb, singular).
 
 % Praepositionen
-lexi(von, praeposition)
+lexi(von, praeposition).
 
 % Artikel
-lexi(der, artikel, singular).
-lexi(die, artikel, singular).
-lexi(die, artikel, plural).
+lexi(der, artikel).
+lexi(die, artikel).
+lexi(die, artikel).
 
 % Nomen Singular
 lexi(onkel, onkel, nomen, singular).
@@ -80,7 +63,7 @@ lexi(tante, tante, nomen, singular).
 lexi(opa, opa, nomen, singular).
 lexi(oma, oma, nomen, singular).
 lexi(vater, vater, nomen, singular).
-lexi(mutter, vater, nomen, singular).
+lexi(mutter, mutter, nomen, singular).
 lexi(schwester, schwester, nomen, singular).
 lexi(bruder, bruder, nomen, singular).
 lexi(halbschwester, halbschwester, nomen, singular).
