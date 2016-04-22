@@ -15,7 +15,7 @@ frage(Satz) --> iterogativphrase(SatzIP, SingularPlural), nominalphrase(SatzNP, 
 
 
 antwort(Geschlecht,[Gefunden],Gesucht,Verhaltnis) --> nominalphrase(Verhaltnis,Geschlecht), praepositionalphrase(Gesucht,Geschlecht),verb(_,Geschlecht),nominalphrase(Gefunden,Geschlecht).
-antwort(Geschlecht,Array,Gesucht,Verhaltnis) --> nominalphrase(Verhaltnis,Geschlecht), praepositionalphrase(Gesucht,Geschlecht),verb(_,Geschlecht),undverkettung(Array).
+antwort(_Geschlecht,Array,Gesucht,Verhaltnis) --> nominalphrase(Verhaltnis,plural), praepositionalphrase(Gesucht,plural),verb(_,plural),undverkettung(Array).
 
 undverkettung([E|R]) --> eigenname(E),undverkettung_(R).
 undverkettung_([E|R]) --> komma,eigenname(E),undverkettung_(R).
@@ -40,9 +40,9 @@ praeposition                                  --> [X], {lexi(X, praeposition)}.
 verb(Semantik, SingularPlural)                --> [X], {lexi(Semantik, X, verb, SingularPlural)}.
 iterogativpronomen                            --> [X], {lexi(X, iterogativpronomen)}.
 artikel(Geschlecht)                           --> [X], {lexi(X, artikel,Geschlecht)}.
-komma --> [","].
+komma --> [','].
 und --> [und].
 
 
-myprint([E|L]) :- write(E),write(" "),myprint(L).
-myprint([]):- write(".").
+myprint([E|L]) :- write(E),write(' '),myprint(L).
+myprint([]):- write('.').

@@ -39,6 +39,7 @@ lexi(cousin, cousin, nomen, mannlich).
 lexi(cousine, cousine, nomen, weiblich).
 lexi(nichte, nichte, nomen, weiblich).
 lexi(neffe, neffe, nomen, mannlich).
+lexi(sohn, sohn, nomen, mannlich).
 
 % Nomen Plural
 % Vaeter und Muetter vielleicht nur wenn man von mehreren verschiedenen Kindern
@@ -60,6 +61,7 @@ lexi(bruder, brueder, nomen, plural).
 lexi(schwester, schwestern, nomen, plural).
 lexi(cousin, cousins, nomen, plural).
 lexi(cousine, cousinen, nomen, plural).
+lexi(sohn, soehne, nomen, plural).
 
 %
 
