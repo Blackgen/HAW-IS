@@ -62,3 +62,6 @@ lexi(cousin, cousins, nomen, plural).
 lexi(cousine, cousinen, nomen, plural).
 
 %
+
+lexi(des,vers).
+lexi(vom,vers).
