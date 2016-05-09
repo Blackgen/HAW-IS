@@ -107,8 +107,7 @@ expand_help(State, Name, NewState):-
   action(Name, ConditionItems, DeleteItems, AddItems),
   mysubset(ConditionItems, State),
   subtract(State, DeleteItems, DeletedItems),
-  append(DeletedItems, AddItems, NewState).
-%   union(DeletedItems, AddItems, NewState).
+  union(DeletedItems, AddItems, NewState).
   % "Action suchen"
   % "Conditions testen (Teilmengenrelation)?"
   % "Del-List umsetzen (Schnittmenge)?"
