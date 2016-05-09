@@ -12,14 +12,14 @@ start_description([
   block(block1),
   block(block2),
   block(block3),
-  block(block4),  %mit Block4
+%  block(block4),  %mit Block4
   on(table, block2),
   on(table, block3),
   on(block2, block1),
-  on(table, block4), %mit Block4
+%  on(table, block4), %mit Block4
   clear(block1),
   clear(block3),
-  clear(block4), %mit Block4
+%  clear(block4), %mit Block4
   handempty
   ]).
 
@@ -27,24 +27,23 @@ goal_description([
   block(block1),
   block(block2),
   block(block3),
-  block(block4), %mit Block4
-  on(block4, block2), %mit Block4
+%  block(block4), %mit Block4
+%  on(block4, block2), %mit Block4
   on(table, block3),
   on(table, block1),
-  on(block1, block4), %mit Block4
-%  on(block1,block2), %ohne Block4
+%  on(block1, block4), %mit Block4
+  on(block1,block2), %ohne Block4
   clear(block3),
   clear(block2),
   handempty
   ]).
-
-
+  
 
 start_node((start,_,_)).
 
-goal_node((_,State,_)):-
+goal_node((_,State,Goal)):-
   goal_description(Goal),
-  state_member(State, Goal).
+  state_member(State, [Goal]).
   % "Zielbedingungen einlesen"
   % "Zustand gegen Zielbedingungen testen".
 
@@ -66,7 +65,9 @@ state_member(State,[_|RestStates]):-
 eval_path([(_,State, Value)|RestPath]):-
   eval_state(State, RestPath).
   % "Rest des Literals bzw. der Klausel"
-  % "Value berechnen".                                       ---> TODO ?
+  % "Value berechnen".                                     ---> TODO ?
+  
+% eval_state()
 
 action(pick_up(X),
        [handempty, clear(X), on(table,X)],
@@ -104,9 +105,10 @@ mysubset([H|T], List):-
 % union()  = Vereinigung -> drei Parameter -> Liste, Liste, ErgebnisListe
 expand_help(State, Name, NewState):-
   action(Name, ConditionItems, DeleteItems, AddItems),
-  subset(ConditionItems, State),
+  mysubset(ConditionItems, State),
   subtract(State, DeleteItems, DeletedItems),
-  union(DeletedItems, AddItems, AddedItems).
+  append(DeletedItems, AddItems, NewState).
+%   union(DeletedItems, AddItems, NewState).
   % "Action suchen"
   % "Conditions testen (Teilmengenrelation)?"
   % "Del-List umsetzen (Schnittmenge)?"
@@ -114,25 +116,6 @@ expand_help(State, Name, NewState):-
   
 expand((_,State,_), Result):-
   findall((Name, NewState,_), expand_help(State, Name, NewState), Result).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
