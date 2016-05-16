@@ -41,7 +41,7 @@ goal_description([
 
 start_node((start,_,_)).
 
-goal_node((_,State,Goal)):-
+goal_node((_,State,_)):-
   goal_description(Goal),
   state_member(State, [Goal]).
   % "Zielbedingungen einlesen"
@@ -62,12 +62,20 @@ state_member(State,[_|RestStates]):-
   state_member(State, RestStates).
   % "rekursiver Aufruf".
 
-eval_path([(_,State, Value)|RestPath]):-
-  eval_state(State, RestPath).
+
+eval_path(Strategy, Path):-
+  length(Path, G),
+  eval_state(Strategy, Path, G).
   % "Rest des Literals bzw. der Klausel"
-  % "Value berechnen".                                     ---> TODO ?
-  
-% eval_state()
+  % "Value berechnen".
+
+% A Algorithm
+eval_state(aAlgorithm, [(_,State, Value)|_], G) :-
+          h(wrong_position, State, H), Value is H + G.
+          
+h(wrong_position, State, H) :- goal_description(Goal),
+                               subtract(Goal, State, Rest),
+                               length(Rest, H).
 
 action(pick_up(X),
        [handempty, clear(X), on(table,X)],
