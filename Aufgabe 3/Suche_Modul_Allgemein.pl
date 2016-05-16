@@ -109,9 +109,8 @@ insert_new_paths(breadth,NewPaths,OldPaths,AllPaths):-
   write_action(AllPaths).
 
 % Informierte Suche
-insert_new_paths(aAlgorithm,NewPaths,OldPaths,AllPaths):-
-  eval_paths(aAlgorithm, NewPaths),
-  write('OK'),
+insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
+  eval_paths(a, NewPaths),
   insert_new_paths_informed(NewPaths,OldPaths,AllPaths),
   write_action(AllPaths),
   write_state(AllPaths).

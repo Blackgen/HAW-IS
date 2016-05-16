@@ -12,6 +12,39 @@ start_description([
   block(block1),
   block(block2),
   block(block3),
+  block(block4),
+  block(block5),
+  on(table,block1),
+  on(table,block3),
+  on(table,block4),
+  on(block1,block2),
+  on(block4,block5),
+  clear(block2),
+  clear(block3),
+  clear(block5),
+  handempty
+  ]).
+  
+goal_description([
+  block(block1),
+  block(block2),
+  block(block3),
+  block(block4),
+  block(block5),
+  on(table,block4),
+  on(table,block5),
+  on(block4,block2),
+  on(block2,block1),
+  on(block5,block3),
+  clear(block1),
+  clear(block3),
+  handempty
+  ]).
+
+start_description1([
+  block(block1),
+  block(block2),
+  block(block3),
 %  block(block4),  %mit Block4
   on(table, block2),
   on(table, block3),
@@ -23,7 +56,7 @@ start_description([
   handempty
   ]).
 
-goal_description([
+goal_description1([
   block(block1),
   block(block2),
   block(block3),
@@ -70,7 +103,7 @@ eval_path(Strategy, Path):-
   % "Value berechnen".
 
 % A Algorithm
-eval_state(aAlgorithm, [(_,State, Value)|_], G) :-
+eval_state(a, [(_,State, Value)|_], G) :-
           h(wrong_position, State, H), Value is H + G.
           
 h(wrong_position, State, H) :- goal_description(Goal),
