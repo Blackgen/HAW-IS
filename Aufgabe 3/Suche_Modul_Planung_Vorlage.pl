@@ -106,6 +106,15 @@ eval_path(Strategy, Path):-
 eval_state(a, [(_,State, Value)|_], G) :-
           h(wrong_position, State, H), Value is H + G.
           
+% Gierige Bestensuche + hill climbing with backtracking
+% gb_and_hcwbt = gierige bestensuche und hillclimbing with backtracking
+% Hierbei gibt es wie in den Folien beschrieben keine Berücksichtigung der
+% Bisherigen Kosten G (Parameter 3 von eval_state)
+eval_state(gb_and_hcwbt, [(_,State, H)|_], _) :-
+          h(wrong_position, State, H).
+          
+% Durch subtract werden die States nach jenen gefiltert, welche an der falschen
+% Position sind.
 h(wrong_position, State, H) :- goal_description(Goal),
                                subtract(Goal, State, Rest),
                                length(Rest, H).

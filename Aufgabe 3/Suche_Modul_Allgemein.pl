@@ -109,11 +109,33 @@ insert_new_paths(breadth,NewPaths,OldPaths,AllPaths):-
   write_action(AllPaths).
 
 % Informierte Suche
-insert_new_paths(informed,NewPaths,OldPaths,AllPaths):-
+insert_new_paths(a,NewPaths,OldPaths,AllPaths):-
   eval_paths(a, NewPaths),
   insert_new_paths_informed(NewPaths,OldPaths,AllPaths),
   write_action(AllPaths),
   write_state(AllPaths).
+
+%Gierige Bestensuche
+insert_new_paths(gb,NewPaths,OldPaths,AllPaths):-
+  eval_paths(gb_and_hcwbt, NewPaths),
+  insert_new_paths_informed(NewPaths,OldPaths, AllPaths),
+  write_action(AllPaths),
+  write_state(AllPaths).
+  
+% Hill Climbing with Backtracking
+insert_new_paths(hcwbt, NewPaths, OldPaths, AllPaths) :-
+  eval_paths(gb_and_hcwbt, NewPaths),
+  insert_new_paths_informed(NewPaths,[],Sorted),
+  append(OldPaths,Sorted,AllPaths),
+  write_action(AllPaths),
+  write_state(AllPaths).
+  
+insert_new_paths(hill_Climbing, NewPaths, OldPaths, AllPaths) :-
+  eval_paths(gb_and_hcwbt, NewPaths),
+  insert_new_paths_informed(NewPaths,[],AllPaths),
+  write_action(AllPaths),
+  write_state(AllPaths).
+
 
 
 

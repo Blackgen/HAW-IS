@@ -1,6 +1,4 @@
 % Informierte Suche
-
-% Erster Parameter hier egal, da auf die Abbruchbediengung geprüft wird.
 eval_paths(_, []).
 
 % Pfade auswerten, fuer die gegebene Suchstrategy.
@@ -13,7 +11,6 @@ insert_new_paths_informed([],OldPaths,OldPaths).
 insert_new_paths_informed([FirstNewPath|RestNewPaths],OldPaths,AllPaths):-
   insert_path_informed(FirstNewPath,OldPaths,FirstInserted),
   insert_new_paths_informed(RestNewPaths,FirstInserted,AllPaths).
-
 
 insert_path_informed(NewPath,[],[NewPath]).
 
@@ -28,7 +25,5 @@ insert_path_informed(NewPath,[FirstPath|RestPaths],[NewPath,FirstPath|RestPaths]
 insert_path_informed(NewPath,[FirstPath|RestPaths],[FirstPath|NewRestPaths]):-
   insert_path_informed(NewPath,RestPaths,NewRestPaths).  
 
-
 cheaper([(_,_,V1)|_],[(_,_,V2)|_]):-
   V1 =< V2.
-  
