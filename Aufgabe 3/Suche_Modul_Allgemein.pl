@@ -130,12 +130,16 @@ insert_new_paths(hcwbt, NewPaths, OldPaths, AllPaths) :-
   write_action(AllPaths),
   write_state(AllPaths).
   
-insert_new_paths(hill_Climbing, NewPaths, OldPaths, AllPaths) :-
+insert_new_paths(hill_Climbing, NewPaths, [], AllPaths) :-
   eval_paths(gb_and_hcwbt, NewPaths),
   insert_new_paths_informed(NewPaths,[],AllPaths),
-  write_action(AllPaths),
-  write_state(AllPaths).
-
+  [[BestPath|[OldPath|_]] | _Rest] = AllPaths,
+  (_,_,Val) = BestPath,
+  (_,_,OldVal) = OldPath,
+  write(NewPaths),nl,write(Val),
+  OldVal < Val,
+  write_action([BestPath]),
+  write_state([BestPath]).
 
 
 

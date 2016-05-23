@@ -154,14 +154,11 @@ mysubset([H|T], List):-
 % intersection() = Schnittmenge -> drei Parameter -> Liste, Liste , Ergebniseliste
 % union()  = Vereinigung -> drei Parameter -> Liste, Liste, ErgebnisListe
 expand_help(State, Name, NewState):-
-  action(Name, ConditionItems, DeleteItems, AddItems),
-  mysubset(ConditionItems, State),
-  subtract(State, DeleteItems, DeletedItems),
-  union(DeletedItems, AddItems, NewState).
-  % "Action suchen"
-  % "Conditions testen (Teilmengenrelation)?"
-  % "Del-List umsetzen (Schnittmenge)?"
-  % "Add-List umsetzen (Vereinigungsmenge)?".
+  action(Name, ConditionItems, DeleteItems, AddItems),   % "Action suchen"
+  mysubset(ConditionItems, State),                       % "Conditions testen"
+  subtract(State, DeleteItems, DeletedItems),            % "Del-List umsetzen"
+  union(DeletedItems, AddItems, NewState).               % "Add-List umsetzen".
+
   
 expand((_,State,_), Result):-
   findall((Name, NewState,_), expand_help(State, Name, NewState), Result).
