@@ -1,7 +1,7 @@
 % Das Programm wird mit solve(depth), solve(breadth) oder solve(informed) aufgerufen.
 solve(Strategy):-
   start_description(StartState),
-  solve((start,StartState,_),Strategy).
+  solve((start,StartState,Value),Strategy).
   
   
 % Prädikat search: 
@@ -62,7 +62,8 @@ generate_new_paths_help([],_,_,[]).
 % anderen Pfad vorkommt, denn möglicherweise ist dieser Weg der günstigere.
 %
 generate_new_paths_help([FirstChild|RestChildren],Path,States,RestNewPaths):- 
-  get_state(FirstChild,State),state_member(State,States),!,
+  get_state(FirstChild,State),
+  state_member(State,States), !,
   generate_new_paths_help(RestChildren,Path,States,RestNewPaths).
 
 
@@ -126,20 +127,27 @@ insert_new_paths(gb,NewPaths,OldPaths,AllPaths):-
 insert_new_paths(hcwbt, NewPaths, OldPaths, AllPaths) :-
   eval_paths(gb_and_hcwbt, NewPaths),
   insert_new_paths_informed(NewPaths,[],Sorted),
-  append(OldPaths,Sorted,AllPaths),
+  append(Sorted, OldPaths,AllPaths),
   write_action(AllPaths),
   write_state(AllPaths).
   
-insert_new_paths(hill_Climbing, NewPaths, [], AllPaths) :-
+ insert_new_paths(hill_climbing, NewPaths, [], AllPaths) :-
+   eval_paths(gb_and_hcwbt, NewPaths),
+   insert_new_paths_informed(NewPaths,[], [First|_]),
+   AllPaths = [First],
+   write_action(AllPaths),
+   write_state(AllPaths).
+
+insert_new_paths(hill_climbing, NewPaths, OldPaths, AllPaths) :-
   eval_paths(gb_and_hcwbt, NewPaths),
-  insert_new_paths_informed(NewPaths,[],AllPaths),
-  [[BestPath|[OldPath|_]] | _Rest] = AllPaths,
-  (_,_,Val) = BestPath,
-  (_,_,OldVal) = OldPath,
-  write(NewPaths),nl,write(Val),
-  OldVal < Val,
-  write_action([BestPath]),
-  write_state([BestPath]).
+  insert_new_paths_informed(NewPaths, [], [First,Second|_]),
+  (_,_,X) = First,
+  (_,_,Y) = Second,
+  X > Y,
+
+  AllPaths = [First],
+  write_action(AllPaths),
+  write_state(AllPaths).
 
 
 

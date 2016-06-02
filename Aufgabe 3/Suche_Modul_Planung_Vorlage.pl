@@ -8,7 +8,7 @@
 %   eval-path           ;Bewertung eines Pfades
 
 
-start_description([
+start_description1([
   block(block1),
   block(block2),
   block(block3),
@@ -25,7 +25,7 @@ start_description([
   handempty
   ]).
   
-goal_description([
+goal_description1([
   block(block1),
   block(block2),
   block(block3),
@@ -41,30 +41,30 @@ goal_description([
   handempty
   ]).
 
-start_description1([
+start_description([
   block(block1),
   block(block2),
   block(block3),
-%  block(block4),  %mit Block4
+ block(block4),  %mit Block4
   on(table, block2),
   on(table, block3),
   on(block2, block1),
-%  on(table, block4), %mit Block4
+ on(table, block4), %mit Block4
   clear(block1),
   clear(block3),
-%  clear(block4), %mit Block4
+ clear(block4), %mit Block4
   handempty
   ]).
 
-goal_description1([
+goal_description([
   block(block1),
   block(block2),
   block(block3),
-%  block(block4), %mit Block4
-%  on(block4, block2), %mit Block4
+ block(block4), %mit Block4
+ on(block4, block2), %mit Block4
   on(table, block3),
   on(table, block1),
-%  on(block1, block4), %mit Block4
+ on(block1, block4), %mit Block4
   on(block1,block2), %ohne Block4
   clear(block3),
   clear(block2),
@@ -118,6 +118,14 @@ eval_state(gb_and_hcwbt, [(_,State, H)|_], _) :-
 h(wrong_position, State, H) :- goal_description(Goal),
                                subtract(Goal, State, Rest),
                                length(Rest, H).
+                               
+h(on, State, Value) :-  not(member(on(X,Y),State)),
+                                                Value is 0.
+h(on, State, Value) :-  goal_description(Goal),
+                                                member(on(X,Y),Goal),
+                                                member(on(X,Y),State),
+                                                subtract(State,[on(X,Y)],NewState),
+                                                h(on,NewState,Value + 1).
 
 action(pick_up(X),
        [handempty, clear(X), on(table,X)],
