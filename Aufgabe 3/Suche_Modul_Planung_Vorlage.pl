@@ -70,7 +70,7 @@ goal_description([
   clear(block2),
   handempty
   ]).
-  
+
 
 start_node((start,_,_)).
 
@@ -106,12 +106,18 @@ eval_path(Strategy, Path):-
 eval_state(a, [(_,State, Value)|_], G) :-
           h(wrong_position, State, H), Value is H + G.
           
+eval_state(aon, [(_,State, Value)|_], G) :-
+          h(on, State, H), Value is H + G.
+
+eval_state(aon2, [(_,State, Value)|_], G) :-
+          h(on2, State, H), Value is H + G.
+          
 % Gierige Bestensuche + hill climbing with backtracking
 % gb_and_hcwbt = gierige bestensuche und hillclimbing with backtracking
 % Hierbei gibt es wie in den Folien beschrieben keine Berücksichtigung der
 % Bisherigen Kosten G (Parameter 3 von eval_state)
 eval_state(gb_and_hcwbt, [(_,State, H)|_], _) :-
-          h(wrong_position, State, H).
+          h(on, State, H).
           
 % Durch subtract werden die States nach jenen gefiltert, welche an der falschen
 % Position sind.
@@ -119,13 +125,21 @@ h(wrong_position, State, H) :- goal_description(Goal),
                                subtract(Goal, State, Rest),
                                length(Rest, H).
                                
-h(on, State, Value) :-  not(member(on(X,Y),State)),
-                                                Value is 0.
 h(on, State, Value) :-  goal_description(Goal),
-                                                member(on(X,Y),Goal),
-                                                member(on(X,Y),State),
-                                                subtract(State,[on(X,Y)],NewState),
-                                                h(on,NewState,Value + 1).
+                        findall(on(X,Y),member(on(X,Y),Goal),GoalBaggy),
+                        findall(on(X,Y),member(on(X,Y),State),StateBaggy),
+                        subtract(GoalBaggy,StateBaggy,RightElems),
+                        length(RightElems,Value).
+                        
+h(on2, State, Value) :-  goal_description(Goal),
+                        findall(on(X,Y),member(on(X,Y),Goal),GoalBaggy),
+                        findall(on(table,T),member(on(table,T),State),TableBaggy),
+                        length(TableBaggy,Tcount),
+                        Count = Tcount * 5,
+                        findall(on(X,Y),member(on(X,Y),State),StateBaggy),
+                        subtract(GoalBaggy,StateBaggy,RightElems),
+                        length(RightElems,RightCount),
+                        Value = RightCount + Count.
 
 action(pick_up(X),
        [handempty, clear(X), on(table,X)],
