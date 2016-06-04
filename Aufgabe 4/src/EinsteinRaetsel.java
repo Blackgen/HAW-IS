@@ -25,7 +25,7 @@ public class EinsteinRaetsel {
     // Initialise
     for (List<String> list : all) {
       for (String elem : list) {
-        solver.addVariable(elem, Arrays.asList(new Integer[]{1, 2, 3, 4, 5}));
+        solver.addVariable(elem, Arrays.asList(new Integer[]{0, 1, 2, 3, 4}));
       }
     }
 
@@ -46,5 +46,12 @@ public class EinsteinRaetsel {
     solver.addBidirectionalEdge("norweger","blau",CSP.neben);
     solver.addBidirectionalEdge("deutscher","rotmanns",CSP.gleich);
     solver.addBidirectionalEdge("malboro","wasser",CSP.neben);
+
+    solver.allDifferent(nationen);
+    solver.allDifferent(farben);
+    solver.allDifferent(getranke);
+    solver.allDifferent(tiere);
+    solver.allDifferent(zigaretten);
+
   }
 }
