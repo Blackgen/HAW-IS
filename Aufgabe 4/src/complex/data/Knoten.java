@@ -3,6 +3,7 @@ package complex.data;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by JanDennis on 04.06.2016.
@@ -40,6 +41,12 @@ public class Knoten {
 
   public Set<Kante> getEintreffendeKanten() {
     return eintreffendeKanten;
+  }
+
+  public Set<Knoten> getNachbarn() {
+    Set<Knoten> nachbarn = ausgehendeKanten.stream().filter(k -> !k.getEnde().equals(this)).map(Kante::getEnde).collect(Collectors.toSet());
+    nachbarn.addAll(eintreffendeKanten.stream().filter(k -> !k.getStart().equals(this)).map(Kante::getStart).collect(Collectors.toList()));
+    return nachbarn;
   }
 
   @Override

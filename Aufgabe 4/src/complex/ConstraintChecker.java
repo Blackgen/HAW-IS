@@ -1,7 +1,6 @@
 package complex;
 
 import complex.data.Constraint;
-import simple.CSP;
 
 /**
  * Created by JanDennis on 04.06.2016.

@@ -55,6 +55,23 @@ public class ConstraintSolver {
     }
   }
 
+  public void ac3() {
+    Queue<Kante> queue = new LinkedList<>(kanten);
+    while(!queue.isEmpty()) {
+      Kante delete = queue.poll();
+      if(revise(delete)) {
+        Set<Knoten> knoten = delete.getStart().getNachbarn();
+        for (Knoten k :knoten) {
+          Iterator<Kante> kantenIterator = k.getAusgehendeKanten().iterator();
+          if(kantenIterator.hasNext()) {
+            Kante kante = kantenIterator.next();
+            queue.add(kante);
+          }
+        }
+      }
+    }
+  }
+
   private boolean revise(Kante edge) {
     boolean action = false;
     for(Integer value : edge.getStart().getDomain()) {
