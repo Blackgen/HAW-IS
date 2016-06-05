@@ -1,7 +1,9 @@
+package complex.data;
+
 /**
  * Created by jandennis on 02.06.16.
  */
-public enum CSP {
+public enum Constraint {
   gleich,
   ungleich,
   linksvon,
@@ -9,5 +11,4 @@ public enum CSP {
   neben,
   mittleresHaus,
   erstesHaus;
-
 }

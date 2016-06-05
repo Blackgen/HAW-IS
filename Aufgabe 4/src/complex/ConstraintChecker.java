@@ -1,8 +1,13 @@
+package complex;
+
+import complex.data.Constraint;
+import simple.CSP;
+
 /**
  * Created by JanDennis on 04.06.2016.
  */
 public class ConstraintChecker {
-  public static boolean check(CSP how, Integer value1, Integer value2) {
+  public static boolean check(Constraint how, Integer value1, Integer value2) {
     switch (how) {
       case gleich:
         return value1.equals(value2);
