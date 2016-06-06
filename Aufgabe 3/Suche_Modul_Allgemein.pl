@@ -151,12 +151,14 @@ insert_new_paths(hcwbt, NewPaths, OldPaths, AllPaths) :-
   
 
 % Optimistisches Bergsteigen
-insert_new_paths(hill_climbing,NewPaths,_,[BestPath]):-
+insert_new_paths(hill_climbing,NewPaths, _, [First, Second| _]):-
   eval_paths(gb_and_hcwbt,NewPaths),
-  insert_new_paths_informed(NewPaths,[],[BestPath|_]),
-  write_action([BestPath]),
-  write_state([BestPath]).
+  insert_new_paths_informed(NewPaths, [], [First, Second| _]),
+  cheapest(First, Second),
+  write_action([First, Second| _]),
+  write_state([First, Second| _]).
 
+cheapest((_,_,First), (_,_,Second)) :- First > Second.
 
 
 

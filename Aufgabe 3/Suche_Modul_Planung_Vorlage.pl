@@ -41,83 +41,83 @@
 %   handempty
 %   ]).
 % 
-% start_description([
-%   block(block1),
-%   block(block2),
-%   block(block3),
-%  block(block4),  %mit Block4
-%   on(table, block2),
-%   on(table, block3),
-%   on(block2, block1),
-%  on(table, block4), %mit Block4
-%   clear(block1),
-%   clear(block3),
-%  clear(block4), %mit Block4
-%   handempty
-%   ]).
-% 
-% goal_description([
-%   block(block1),
-%   block(block2),
-%   block(block3),
-%  block(block4), %mit Block4
-%  on(block4, block2), %mit Block4
-%   on(table, block3),
-%   on(table, block1),
-%  on(block1, block4), %mit Block4
-%   on(block1,block2), %ohne Block4
-%   clear(block3),
-%   clear(block2),
-%   handempty
-%   ]).
-
-% Kompliziert Simple
 start_description([
   block(block1),
   block(block2),
   block(block3),
-  block(block4),
-  block(block5),
-  block(block12),
-  block(block13),
-  block(block14),
-  on(table, block1),
-  on(table, block4),
-  on(table, block12),
-  handempty,
+ block(block4),  %mit Block4
+  on(table, block2),
+  on(table, block3),
+  on(block2, block1),
+ on(table, block4), %mit Block4
+  clear(block1),
   clear(block3),
-  clear(block5),
-  clear(block14),
-  on(block1, block2),
-  on(block2, block3),
-  on(block4, block5),
-  on(block12, block13),
-  on(block13, block14)
-]).
-  
-% Kompliziert Simple
+ clear(block4), %mit Block4
+  handempty
+  ]).
+
 goal_description([
   block(block1),
   block(block2),
   block(block3),
-  block(block4),
-  block(block5),
-  block(block12),
-  block(block13),
-  block(block14),
-  on(table, block12),
-  on(table, block13),
-  on(table, block5),
-  handempty,
-  clear(block12),
-  clear(block14),
-  clear(block1),
-  on(block13, block14),
-  on(block5, block4),
-  on(block4, block3),
-  on(block3, block2),
-  on(block2, block1)
-]).
+ block(block4), %mit Block4
+ on(block4, block2), %mit Block4
+  on(table, block3),
+  on(table, block1),
+ on(block1, block4), %mit Block4
+  on(block1,block2), %ohne Block4
+  clear(block3),
+  clear(block2),
+  handempty
+  ]).
+
+% Kompliziert Simple
+% start_description([
+%   block(block1),
+%   block(block2),
+%   block(block3),
+%   block(block4),
+%   block(block5),
+%   block(block12),
+%   block(block13),
+%   block(block14),
+%   on(table, block1),
+%   on(table, block4),
+%   on(table, block12),
+%   handempty,
+%   clear(block3),
+%   clear(block5),
+%   clear(block14),
+%   on(block1, block2),
+%   on(block2, block3),
+%   on(block4, block5),
+%   on(block12, block13),
+%   on(block13, block14)
+% ]).
+%   
+% Kompliziert Simple
+% goal_description([
+%   block(block1),
+%   block(block2),
+%   block(block3),
+%   block(block4),
+%   block(block5),
+%   block(block12),
+%   block(block13),
+%   block(block14),
+%   on(table, block12),
+%   on(table, block13),
+%   on(table, block5),
+%   handempty,
+%   clear(block12),
+%   clear(block14),
+%   clear(block1),
+%   on(block13, block14),
+%   on(block5, block4),
+%   on(block4, block3),
+%   on(block3, block2),
+%   on(block2, block1)
+% ]).
 
 
 start_node((start,_,_)).
