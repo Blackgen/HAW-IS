@@ -65,16 +65,40 @@ public class ConstraintSolver {
       Kante delete = queue.poll();
       if(revise(delete)) {
         for (Kante k :kanten) {
-
             if (k.getStart().equals(delete.getEnde()) || k.getStart().equals(k.getEnde())) {
               System.err.println("ALLERT");
               break;
             }
             queue.add(k);
-
         }
       }
     }
+  }
+
+  public boolean ac3LA(int cv) {
+    Queue<Kante> queue = null;
+    queue = addKorrekteKanten(cv);
+    boolean consistent = true;
+    while(!queue.isEmpty() && consistent) {
+      Kante delete = queue.poll();
+      if(revise(delete)) {
+        //TODO: Rest vom algorithmus...
+      }
+    }
+    return consistent;
+  }
+
+  private Queue<Kante> addKorrekteKanten(int cv) {
+    Queue<Kante> result = new LinkedList<>();
+    for (Kante k: kanten) {
+      Knoten startKnoten = k.getStart();
+      Knoten zielKnoten = k.getEnde();
+      if(startKnoten.getDomain().get(0) > cv && zielKnoten.getDomain().get(1) == cv) { // TODO: Diese Zeile noch überprüefen, da nicht genau sicher ob richtig!
+        result.add(k);
+      }
+
+    }
+    return result;
   }
 
   private boolean revise(Kante edge) {
