@@ -10,7 +10,7 @@ import java.util.*;
  * Created by JanDennis on 04.06.2016.
  */
 public class ConstraintSolver {
-  private Set<Knoten> knoten = new HashSet<>();
+  public Set<Knoten> knoten = new HashSet<>();
   private Set<Kante> kanten = new HashSet<>();
 
   public Knoten addVariable(String name, List<Integer> dom) {
@@ -29,9 +29,13 @@ public class ConstraintSolver {
   }
 
   public void allDifferent(Collection<Knoten> knoten) {
+    List<Knoten> workingList= new ArrayList<>(knoten);
     for (Knoten elem : knoten) {
-      for (Knoten elem2 : knoten) {
-        if (!elem.equals(elem2)) addBiConstraint(elem, elem2, Constraint.ungleich);
+      workingList.remove(elem);
+      for (Knoten elem2 : workingList) {
+        if (!elem.equals(elem2)) {
+          addBiConstraint(elem, elem2, Constraint.ungleich);
+        }
       }
     }
   }
@@ -60,13 +64,14 @@ public class ConstraintSolver {
     while(!queue.isEmpty()) {
       Kante delete = queue.poll();
       if(revise(delete)) {
-        Set<Knoten> knoten = delete.getStart().getNachbarn();
-        for (Knoten k :knoten) {
-          Iterator<Kante> kantenIterator = k.getAusgehendeKanten().iterator();
-          if(kantenIterator.hasNext()) {
-            Kante kante = kantenIterator.next();
-            queue.add(kante);
-          }
+        for (Kante k :kanten) {
+
+            if (k.getStart().equals(delete.getEnde()) || k.getStart().equals(k.getEnde())) {
+              System.err.println("ALLERT");
+              break;
+            }
+            queue.add(k);
+
         }
       }
     }
@@ -74,7 +79,9 @@ public class ConstraintSolver {
 
   private boolean revise(Kante edge) {
     boolean action = false;
-    for(Integer value : edge.getStart().getDomain()) {
+    // To avoid Concurrent Modification Error:
+    List<Integer> list = new ArrayList<>(edge.getStart().getDomain());
+    for(Integer value : list) {
       if (!isValuePossible(edge,value)) {
         action = true;
         edge.getStart().getDomain().remove(value);
@@ -86,6 +93,7 @@ public class ConstraintSolver {
   private boolean isValuePossible(Kante edge, Integer value) {
     for(Integer value2 : edge.getEnde().getDomain()) {
       if (ConstraintChecker.check(edge.getConstraint(),value,value2)) {
+        System.err.println("TEST "+edge.getConstraint());
         return true;
       }
     }

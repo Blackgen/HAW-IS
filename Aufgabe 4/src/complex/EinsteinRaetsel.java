@@ -5,6 +5,7 @@ import complex.data.Kante;
 import complex.data.Knoten;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,28 +45,34 @@ public class EinsteinRaetsel {
   private final Knoten rothmanns = solver.addVariable("rothmanns",getDomain());
   
   public void solve() {
-    solver.addBiConstraint(brite,rot, Constraint.gleich);
-    solver.addBiConstraint(schwede,hund,Constraint.gleich);
-    solver.addBiConstraint(daene,tee,Constraint.gleich);
-    solver.addUnaryConstraint(gruen,weiss,Constraint.linksvon);
-    solver.addUnaryConstraint(weiss,gruen,Constraint.rechtsvon);
-    solver.addBiConstraint(gruen,kaffee,Constraint.gleich);
-    solver.addBiConstraint(pallmall,vogel,Constraint.gleich);
-    solver.addUnaryConstraint(milch,milch,Constraint.mittleresHaus);
-    solver.addBiConstraint(gelb,dunhill,Constraint.gleich);
-    solver.addUnaryConstraint(norweger,norweger,Constraint.erstesHaus);
-    solver.addBiConstraint(malboro,katze,Constraint.gleich);
-    solver.addBiConstraint(pferd,dunhill,Constraint.gleich);
-    solver.addBiConstraint(winfield,bier,Constraint.gleich);
-    solver.addBiConstraint(norweger,blau,Constraint.neben);
-    solver.addBiConstraint(deutscher,rothmanns,Constraint.gleich);
-    solver.addBiConstraint(malboro,wasser,Constraint.neben);
+    solver.addBiConstraint(brite,rot, Constraint.gleich);                 // 1
+    solver.addBiConstraint(schwede,hund,Constraint.gleich);               // 2
+    solver.addBiConstraint(daene,tee,Constraint.gleich);                  // 3
+    solver.addUnaryConstraint(gruen,weiss,Constraint.linksvon);           // 4
+    solver.addUnaryConstraint(weiss,gruen,Constraint.rechtsvon);          // 4
+    solver.addBiConstraint(gruen,kaffee,Constraint.gleich);               // 5
+    solver.addBiConstraint(pallmall,vogel,Constraint.gleich);             // 6
+    solver.addUnaryConstraint(milch,milch,Constraint.mittleresHaus);      // 7
+    solver.addBiConstraint(gelb,dunhill,Constraint.gleich);               // 8
+    solver.addUnaryConstraint(norweger,norweger,Constraint.erstesHaus);   // 9
+    solver.addBiConstraint(malboro,katze,Constraint.neben);               // 10
+    solver.addBiConstraint(pferd,dunhill,Constraint.neben);               // 11
+    solver.addBiConstraint(winfield,bier,Constraint.gleich);              // 12
+    solver.addBiConstraint(norweger,blau,Constraint.neben);               // 13
+    solver.addBiConstraint(deutscher,rothmanns,Constraint.gleich);        // 14
+    solver.addBiConstraint(malboro,wasser,Constraint.neben);              // 15
 
     solver.allDifferent(Arrays.asList(new Knoten[]{brite,schwede,daene,norweger,deutscher}));
     solver.allDifferent(Arrays.asList(new Knoten[]{rot,gruen,gelb,weiss,blau}));
     solver.allDifferent(Arrays.asList(new Knoten[]{hund,vogel,katze,pferd,fisch}));
     solver.allDifferent(Arrays.asList(new Knoten[]{tee,kaffee,milch,bier,wasser}));
     solver.allDifferent(Arrays.asList(new Knoten[]{pallmall,dunhill,malboro,winfield,rothmanns}));
+
+    solver.ac3();
+
+    for(Knoten k : solver.knoten) {
+      System.out.println(k.toString());
+    }
   }
   
   
@@ -73,6 +80,6 @@ public class EinsteinRaetsel {
   
   
   private List<Integer> getDomain() {
-    return Arrays.asList(new Integer[]{1,2,3,4,5});
+    return new LinkedList<>(Arrays.asList(new Integer[]{0,1,2,3,4}));
   }
 }

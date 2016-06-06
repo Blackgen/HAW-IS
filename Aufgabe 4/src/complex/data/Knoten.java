@@ -64,4 +64,13 @@ public class Knoten {
   public int hashCode() {
     return name != null ? name.hashCode() : 0;
   }
+
+  @Override
+  public String toString() {
+    final StringBuffer sb = new StringBuffer("Knoten{");
+    sb.append("name='").append(name).append('\'');
+    sb.append(", domain=").append(domain);
+    sb.append('}');
+    return sb.toString();
+  }
 }
