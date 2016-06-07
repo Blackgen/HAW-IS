@@ -69,7 +69,7 @@ public class EinsteinRaetsel {
     solver.allDifferent(Arrays.asList(new Knoten[]{pallmall,dunhill,malboro,winfield,rothmanns}));
 
     solver.ac3();
-
+    solver.solve(0);
     for(Knoten k : solver.knoten) {
       System.out.println(k.toString());
     }

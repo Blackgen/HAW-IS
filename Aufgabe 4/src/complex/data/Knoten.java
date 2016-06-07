@@ -35,6 +35,10 @@ public class Knoten {
     return domain;
   }
 
+  public void setDomain(List<Integer> domain) {
+    this.domain = domain;
+  }
+
   public Set<Kante> getAusgehendeKanten() {
     return ausgehendeKanten;
   }

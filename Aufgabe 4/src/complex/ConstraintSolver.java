@@ -49,16 +49,6 @@ public class ConstraintSolver {
     return knoten.getAusgehendeKanten();
   }
 
-  public void ac3la() {
-    Queue<Kante> queue = new LinkedList<>(kanten);
-    while (!queue.isEmpty()) {
-      Kante kante = queue.poll();
-      if (revise(kante)) {
-
-      }
-    }
-  }
-
   public void ac3() {
     Queue<Kante> queue = new LinkedList<>(kanten);
     while (!queue.isEmpty()) {
@@ -66,7 +56,7 @@ public class ConstraintSolver {
       if (revise(delete)) {
         for (Kante k : kanten) {
           if (k.getStart().equals(delete.getEnde()) || k.getStart().equals(k.getEnde())) {
-            System.err.println("ALLERT");
+//            System.err.println("ALLERT");
             break;
           }
           queue.add(k);
@@ -81,10 +71,35 @@ public class ConstraintSolver {
     while (!queue.isEmpty() && consistent) {
       Kante delete = queue.poll();
       if (revise(delete)) {
-        //TODO: Rest vom algorithmus...
+        if (delete.getStart().getDomain().isEmpty()) System.err.println("NO MORE DOM");
+        for (Kante k : delete.getStart().getEintreffendeKanten()) {
+//          if (!k.getStart().equals(delete.getStart()) && !k.getStart().equals(delete.getEnde()) && (knoten.indexOf(k.getStart()) > cv)) {
+          if ((knoten.indexOf(k.getStart())!=knoten.indexOf(k.getEnde())) && (knoten.indexOf(k.getStart()) != knoten.indexOf(delete.getEnde())) && (knoten.indexOf(k.getStart()) > cv)) {
+            queue.add(k);
+            consistent = !delete.getStart().getDomain().isEmpty();
+          }
+        }
       }
     }
     return consistent;
+  }
+
+  public boolean solve(int currentIndex) {
+    if (knoten.get(currentIndex).getDomain().isEmpty()) return false;
+    // Backup
+    Set<Kante> backupKanten = new HashSet<>(kanten);
+    List<Knoten> backupKnoten = new ArrayList<>(knoten);
+    List<Integer> backupDomain = new ArrayList<>(knoten.get(currentIndex).getDomain());
+
+    knoten.get(currentIndex).getDomain().remove(0);
+    if (ac3LA(currentIndex)) {
+      if (currentIndex == knoten.size() - 1) return true;
+      if (solve(currentIndex + 1)) return true;
+    }
+    kanten = backupKanten;
+    knoten = backupKnoten;
+    knoten.get(currentIndex).setDomain(new ArrayList<>(backupDomain));
+    return solve(currentIndex);
   }
 
   private Queue<Kante> addKorrekteKanten(int cv) {
@@ -113,7 +128,6 @@ public class ConstraintSolver {
   private boolean isValuePossible(Kante edge, Integer value) {
     for (Integer value2 : edge.getEnde().getDomain()) {
       if (ConstraintChecker.check(edge.getConstraint(), value, value2)) {
-        System.err.println("TEST " + edge.getConstraint());
         return true;
       }
     }
