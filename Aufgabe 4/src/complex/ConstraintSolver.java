@@ -10,7 +10,7 @@ import java.util.*;
  * Created by JanDennis on 04.06.2016.
  */
 public class ConstraintSolver {
-  public Set<Knoten> knoten = new HashSet<>();
+  public List<Knoten> knoten = new ArrayList<>();
   private Set<Kante> kanten = new HashSet<>();
 
   public Knoten addVariable(String name, List<Integer> dom) {
@@ -29,7 +29,7 @@ public class ConstraintSolver {
   }
 
   public void allDifferent(Collection<Knoten> knoten) {
-    List<Knoten> workingList= new ArrayList<>(knoten);
+    List<Knoten> workingList = new ArrayList<>(knoten);
     for (Knoten elem : knoten) {
       workingList.remove(elem);
       for (Knoten elem2 : workingList) {
@@ -61,27 +61,26 @@ public class ConstraintSolver {
 
   public void ac3() {
     Queue<Kante> queue = new LinkedList<>(kanten);
-    while(!queue.isEmpty()) {
+    while (!queue.isEmpty()) {
       Kante delete = queue.poll();
-      if(revise(delete)) {
-        for (Kante k :kanten) {
-            if (k.getStart().equals(delete.getEnde()) || k.getStart().equals(k.getEnde())) {
-              System.err.println("ALLERT");
-              break;
-            }
-            queue.add(k);
+      if (revise(delete)) {
+        for (Kante k : kanten) {
+          if (k.getStart().equals(delete.getEnde()) || k.getStart().equals(k.getEnde())) {
+            System.err.println("ALLERT");
+            break;
+          }
+          queue.add(k);
         }
       }
     }
   }
 
   public boolean ac3LA(int cv) {
-    Queue<Kante> queue = null;
-    queue = addKorrekteKanten(cv);
+    Queue<Kante> queue = addKorrekteKanten(cv);
     boolean consistent = true;
-    while(!queue.isEmpty() && consistent) {
+    while (!queue.isEmpty() && consistent) {
       Kante delete = queue.poll();
-      if(revise(delete)) {
+      if (revise(delete)) {
         //TODO: Rest vom algorithmus...
       }
     }
@@ -90,13 +89,10 @@ public class ConstraintSolver {
 
   private Queue<Kante> addKorrekteKanten(int cv) {
     Queue<Kante> result = new LinkedList<>();
-    for (Kante k: kanten) {
-      Knoten startKnoten = k.getStart();
-      Knoten zielKnoten = k.getEnde();
-      if(startKnoten.getDomain().get(0) > cv && zielKnoten.getDomain().get(1) == cv) { // TODO: Diese Zeile noch überprüefen, da nicht genau sicher ob richtig!
+    for (Kante k : kanten) {
+      if (knoten.indexOf(k.getStart()) > cv && knoten.indexOf(k.getEnde()) == cv) {
         result.add(k);
       }
-
     }
     return result;
   }
@@ -105,8 +101,8 @@ public class ConstraintSolver {
     boolean action = false;
     // To avoid Concurrent Modification Error:
     List<Integer> list = new ArrayList<>(edge.getStart().getDomain());
-    for(Integer value : list) {
-      if (!isValuePossible(edge,value)) {
+    for (Integer value : list) {
+      if (!isValuePossible(edge, value)) {
         action = true;
         edge.getStart().getDomain().remove(value);
       }
@@ -115,9 +111,9 @@ public class ConstraintSolver {
   }
 
   private boolean isValuePossible(Kante edge, Integer value) {
-    for(Integer value2 : edge.getEnde().getDomain()) {
-      if (ConstraintChecker.check(edge.getConstraint(),value,value2)) {
-        System.err.println("TEST "+edge.getConstraint());
+    for (Integer value2 : edge.getEnde().getDomain()) {
+      if (ConstraintChecker.check(edge.getConstraint(), value, value2)) {
+        System.err.println("TEST " + edge.getConstraint());
         return true;
       }
     }
