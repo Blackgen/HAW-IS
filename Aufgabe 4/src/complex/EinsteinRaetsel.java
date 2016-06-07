@@ -45,6 +45,9 @@ public class EinsteinRaetsel {
   private final Knoten rothmanns = solver.addVariable("rothmanns",getDomain());
   
   public void solve() {
+    solver.addBiConstraint(norweger,norweger,Constraint.erstesHaus);   // 9
+    solver.addBiConstraint(milch,milch,Constraint.mittleresHaus);      // 7
+
     solver.addBiConstraint(brite,rot, Constraint.gleich);                 // 1
     solver.addBiConstraint(schwede,hund,Constraint.gleich);               // 2
     solver.addBiConstraint(daene,tee,Constraint.gleich);                  // 3
@@ -52,14 +55,12 @@ public class EinsteinRaetsel {
     solver.addUnaryConstraint(weiss,gruen,Constraint.rechtsvon);          // 4
     solver.addBiConstraint(gruen,kaffee,Constraint.gleich);               // 5
     solver.addBiConstraint(pallmall,vogel,Constraint.gleich);             // 6
-    solver.addUnaryConstraint(milch,milch,Constraint.mittleresHaus);      // 7
     solver.addBiConstraint(gelb,dunhill,Constraint.gleich);               // 8
-    solver.addUnaryConstraint(norweger,norweger,Constraint.erstesHaus);   // 9
     solver.addBiConstraint(malboro,katze,Constraint.neben);               // 10
-    solver.addBiConstraint(pferd,dunhill,Constraint.neben);               // 11
     solver.addBiConstraint(winfield,bier,Constraint.gleich);              // 12
-    solver.addBiConstraint(norweger,blau,Constraint.neben);               // 13
     solver.addBiConstraint(deutscher,rothmanns,Constraint.gleich);        // 14
+    solver.addBiConstraint(pferd,dunhill,Constraint.neben);               // 11
+    solver.addBiConstraint(norweger,blau,Constraint.neben);               // 13
     solver.addBiConstraint(malboro,wasser,Constraint.neben);              // 15
 
     solver.allDifferent(Arrays.asList(new Knoten[]{brite,schwede,daene,norweger,deutscher}));
@@ -68,6 +69,8 @@ public class EinsteinRaetsel {
     solver.allDifferent(Arrays.asList(new Knoten[]{tee,kaffee,milch,bier,wasser}));
     solver.allDifferent(Arrays.asList(new Knoten[]{pallmall,dunhill,malboro,winfield,rothmanns}));
 
+
+    solver.checkUnary();
     solver.ac3();
     solver.solve(0);
     for(Knoten k : solver.knoten) {

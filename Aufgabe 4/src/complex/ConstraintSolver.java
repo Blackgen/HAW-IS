@@ -5,6 +5,7 @@ import complex.data.Kante;
 import complex.data.Knoten;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by JanDennis on 04.06.2016.
@@ -31,8 +32,8 @@ public class ConstraintSolver {
   public void allDifferent(Collection<Knoten> knoten) {
     List<Knoten> workingList = new ArrayList<>(knoten);
     for (Knoten elem : knoten) {
-      workingList.remove(elem);
-      for (Knoten elem2 : workingList) {
+//      workingList.remove(elem);
+      for (Knoten elem2 : knoten) {
         if (!elem.equals(elem2)) {
           addBiConstraint(elem, elem2, Constraint.ungleich);
         }
@@ -84,6 +85,35 @@ public class ConstraintSolver {
     return consistent;
   }
 
+//  public boolean solve(int currentIndex) {
+//    if (knoten.get(currentIndex).getDomain().isEmpty()) return false;
+//    // Backup
+//    Set<Kante> backupKanten = new HashSet<>(kanten);
+//    List<Knoten> backupKnoten = new ArrayList<>(knoten);
+//    List<Integer> backupDomain = new ArrayList<>(knoten.get(currentIndex).getDomain());
+//
+//    knoten.get(currentIndex).getDomain().remove(0);
+//    if (ac3LA(currentIndex)) {
+//      if (currentIndex == knoten.size() - 1) return true;
+//      if (solve(currentIndex + 1)) return true;
+//    }
+//    kanten = backupKanten;
+//    knoten = backupKnoten;
+//    knoten.get(currentIndex).setDomain(new ArrayList<>(backupDomain));
+//    return solve(currentIndex);
+//  }
+
+//  public boolean solve(int currentIndex){
+//    System.out.println("< "+currentIndex);
+//    if (knoten.get(currentIndex).getDomain().isEmpty()) return false;
+//    for(Integer curr : knoten.get(currentIndex).getDomain()) {
+//      if(ac3LA(currentIndex)) {
+//        if(currentIndex== knoten.size()-1) return true;
+//        if(solve(currentIndex+1)) return true;
+//      }
+//    }
+//    return false;
+//  }
   public boolean solve(int currentIndex) {
     if (knoten.get(currentIndex).getDomain().isEmpty()) return false;
     // Backup
@@ -91,15 +121,38 @@ public class ConstraintSolver {
     List<Knoten> backupKnoten = new ArrayList<>(knoten);
     List<Integer> backupDomain = new ArrayList<>(knoten.get(currentIndex).getDomain());
 
-    knoten.get(currentIndex).getDomain().remove(0);
-    if (ac3LA(currentIndex)) {
-      if (currentIndex == knoten.size() - 1) return true;
-      if (solve(currentIndex + 1)) return true;
+    for( int bv: knoten.get(currentIndex).getDomain()) {
+      List<Integer> nd = new ArrayList<>();
+      nd.add(bv);
+
+      knoten.get(currentIndex).setDomain(nd);
+      if (ac3LA(currentIndex)) {
+        if (currentIndex == knoten.size() - 1) return true;
+        return solve(currentIndex + 1);
+
+      } else {
+        kanten = backupKanten;
+        knoten = backupKnoten;
+        knoten.get(currentIndex).setDomain(backupDomain);
+        break;
+      }
     }
-    kanten = backupKanten;
-    knoten = backupKnoten;
-    knoten.get(currentIndex).setDomain(new ArrayList<>(backupDomain));
-    return solve(currentIndex);
+    return false;
+  }
+
+  public void checkUnary() {
+    final List<Kante> unaryConstraints = kanten.stream().filter(edge -> {
+      return edge.getStart().equals(edge.getEnde());
+    }).collect(Collectors.toCollection(ArrayList::new));
+
+    for(Kante k : unaryConstraints) {
+      List<Integer> dom = k.getStart().getDomain();
+      List<Integer> result = new ArrayList<>();
+      for (Integer i : dom) {
+        if( ConstraintChecker.check(k.getConstraint(),i,i)) result.add(i);
+      }
+      k.getStart().setDomain(result);
+    }
   }
 
   private Queue<Kante> addKorrekteKanten(int cv) {

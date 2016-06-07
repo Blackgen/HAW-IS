@@ -7,6 +7,7 @@ import complex.data.Constraint;
  */
 public class ConstraintChecker {
   public static boolean check(Constraint how, Integer value1, Integer value2) {
+
     switch (how) {
       case gleich:
         return value1.intValue() == value2.intValue();
@@ -15,10 +16,10 @@ public class ConstraintChecker {
         return (value1.intValue() != value2.intValue());
 
       case linksvon:
-        return value1.intValue() == value2.intValue() - 1;
+        return value1.intValue() < value2.intValue() ;
 
       case rechtsvon:
-        return value1.intValue() == value2.intValue() + 1;
+        return value1.intValue() > value2.intValue() ;
 
       case neben:
         return (Math.abs(value1.intValue() - value2.intValue()) == 1);
