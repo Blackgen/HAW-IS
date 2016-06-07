@@ -4,6 +4,7 @@ import complex.data.Constraint;
 import complex.data.Kante;
 import complex.data.Knoten;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,10 +71,21 @@ public class EinsteinRaetsel {
     solver.allDifferent(Arrays.asList(new Knoten[]{pallmall,dunhill,malboro,winfield,rothmanns}));
 
 
-    solver.checkUnary();
-    solver.ac3();
+//    solver.checkUnary();
+//    solver.ac3();
     solver.solve(0);
+    List<Knoten> de = new ArrayList<>();
+    List<Knoten> nr = new ArrayList<>();
+    List<Knoten> sw = new ArrayList<>();
+    List<Knoten> dae = new ArrayList<>();
+    List<Knoten> br = new ArrayList<>();
+
     for(Knoten k : solver.knoten) {
+      if (k.getDomain().get(0) == 0) {
+        de.add(k);
+      } else if() {
+
+      }
       System.out.println(k.toString());
     }
   }

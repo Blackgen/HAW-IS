@@ -132,7 +132,7 @@ public class ConstraintSolver {
 
       } else {
         kanten = backupKanten;
-        knoten = backupKnoten;
+//        knoten = backupKnoten;
         knoten.get(currentIndex).setDomain(backupDomain);
         break;
       }
