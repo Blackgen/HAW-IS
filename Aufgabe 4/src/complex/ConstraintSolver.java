@@ -75,7 +75,7 @@ public class ConstraintSolver {
         if (delete.getStart().getDomain().isEmpty()) System.err.println("NO MORE DOM");
         for (Kante k : delete.getStart().getEintreffendeKanten()) {
 //          if (!k.getStart().equals(delete.getStart()) && !k.getStart().equals(delete.getEnde()) && (knoten.indexOf(k.getStart()) > cv)) {
-          if ((knoten.indexOf(k.getStart())!=knoten.indexOf(k.getEnde())) && (knoten.indexOf(k.getStart()) != knoten.indexOf(delete.getEnde())) && (knoten.indexOf(k.getStart()) > cv)) {
+          if ((knoten.indexOf(k.getStart()) != knoten.indexOf(k.getEnde())) && (knoten.indexOf(k.getStart()) != knoten.indexOf(delete.getEnde())) && (knoten.indexOf(k.getStart()) > cv)) {
             queue.add(k);
             consistent = !delete.getStart().getDomain().isEmpty();
           }
@@ -103,7 +103,7 @@ public class ConstraintSolver {
 //    return solve(currentIndex);
 //  }
 
-//  public boolean solve(int currentIndex){
+  //  public boolean solve(int currentIndex){
 //    System.out.println("< "+currentIndex);
 //    if (knoten.get(currentIndex).getDomain().isEmpty()) return false;
 //    for(Integer curr : knoten.get(currentIndex).getDomain()) {
@@ -121,7 +121,7 @@ public class ConstraintSolver {
     List<Knoten> backupKnoten = new ArrayList<>(knoten);
     List<Integer> backupDomain = new ArrayList<>(knoten.get(currentIndex).getDomain());
 
-    for( int bv: knoten.get(currentIndex).getDomain()) {
+    for (int bv : knoten.get(currentIndex).getDomain()) {
       List<Integer> nd = new ArrayList<>();
       nd.add(bv);
 
@@ -145,11 +145,11 @@ public class ConstraintSolver {
       return edge.getStart().equals(edge.getEnde());
     }).collect(Collectors.toCollection(ArrayList::new));
 
-    for(Kante k : unaryConstraints) {
+    for (Kante k : unaryConstraints) {
       List<Integer> dom = k.getStart().getDomain();
       List<Integer> result = new ArrayList<>();
       for (Integer i : dom) {
-        if( ConstraintChecker.check(k.getConstraint(),i,i)) result.add(i);
+        if (ConstraintChecker.check(k.getConstraint(), i, i)) result.add(i);
       }
       k.getStart().setDomain(result);
     }

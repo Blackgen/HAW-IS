@@ -16,10 +16,10 @@ public class ConstraintChecker {
         return (value1.intValue() != value2.intValue());
 
       case linksvon:
-        return value1.intValue() < value2.intValue() ;
+        return value1.intValue() < value2.intValue();
 
       case rechtsvon:
-        return value1.intValue() > value2.intValue() ;
+        return value1.intValue() > value2.intValue();
 
       case neben:
         return (Math.abs(value1.intValue() - value2.intValue()) == 1);
