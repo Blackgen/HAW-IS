@@ -11,17 +11,17 @@ mutter(X,Y) :- elternteil(X,Y), frau(X).
 sohn(X,Y):- elternteil(Y,X),mann(X).
 
 %Tochter: X ist Tochter von Y
-tochter(X,Y):- elternteil(Y,X),tochter(X).
+tochter(X,Y):- elternteil(Y,X),weiblich(X).
 
 
-% Groﬂelternteil: X ist Elternteil vom Elternteil von Y
-groﬂelternteil(X,Y) :- elternteil(X,Z), elternteil(Z,Y).
+% Gro√üelternteil: X ist Elternteil vom Elternteil von Y
+gro√üelternteil(X,Y) :- elternteil(X,Z), elternteil(Z,Y).
 
 % Opa: X ist Opa von Y
-opa(X,Y) :-  groﬂelternteil(X,Y), mann(X).
+opa(X,Y) :-  gro√üelternteil(X,Y), mann(X).
 
 % Oma: X ist Oma von Y
-oma(X,Y) :-  groﬂelternteil(X,Y), frau(X).
+oma(X,Y) :-  gro√üelternteil(X,Y), frau(X).
 
 % Uropa: X ist Uropa von Y
 uropa(X, Y) :-  mann(X), vater(Z, Y), opa(X, Z).
